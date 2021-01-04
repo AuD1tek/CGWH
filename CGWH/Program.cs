@@ -10,6 +10,7 @@ namespace CGWH
             Console.Title = Cheat.NAME;
             Console.CursorVisible = false;
 
+            DebugUtility.Log("\n\n");
             WriteWithColor("CGWH - Started", ConsoleColor.Yellow, true);
             WriteWithColor($"> CVD: {Cheat.VERSION_DATE} CVT: {Cheat.VERSION_TIME}\n\n", ConsoleColor.White, true);
 
@@ -17,13 +18,16 @@ namespace CGWH
             ESP esp = new ESP(cheat);
             if (cheat.IsValidVersion())
             {
-                WriteWithColor("Sucsesfully Injected!", ConsoleColor.Green, true);
-                esp.LoadESP();
+                if (cheat.IsGetProcess())
+                {
+                    WriteWithColor("Sucsesfully Injected!", ConsoleColor.Green, true);
+                    esp.LoadESP();
+                }
+                else
+                    WriteWithColor("Process '" + Cheat.PROCESS_NAME + "' was not found!", ConsoleColor.Red, true);
             }
             else
-            {
                 WriteWithColor("Version of game is not valid", ConsoleColor.Red, true);
-            }
 
             Console.ForegroundColor = ConsoleColor.Black;
             Console.ReadLine();

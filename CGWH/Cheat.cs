@@ -42,10 +42,11 @@ namespace CGWH
 
         internal bool IsValidVersion()
         {
-            FileInfo infFile = new FileInfo(Path.Combine(Registry.GetValue("HKEY_LOCAL_MACHINE\\SOFTWARE\\Wow6432Node\\Valve\\Steam", "InstallPath", null).ToString(), "\\steamapps\\common\\Counter-Strike Global Offensive\\csgo\\steam.inf"));
-            if (infFile.Exists)
+            string steamPath = Registry.GetValue("HKEY_LOCAL_MACHINE\\SOFTWARE\\Wow6432Node\\Valve\\Steam", "InstallPath", null).ToString();
+            string infPath = steamPath + "\\steamapps\\common\\Counter-Strike Global Offensive\\csgo\\steam.inf";
+            if (File.Exists(infPath))
             {
-                string infText = File.ReadAllText(infFile.FullName);
+                string infText = File.ReadAllText(infPath);
                 if (infText.Contains(VERSION_DATE) && infText.Contains(VERSION_TIME))
                     return true;
             }
