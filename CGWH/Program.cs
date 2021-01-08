@@ -20,7 +20,7 @@ namespace CGWH
             {
                 if (cheat.IsGetProcess())
                 {
-                    WriteWithColor("Sucsesfully Injected!", ConsoleColor.Green, true);
+                    WriteWithColor("Sucsesfully working!", ConsoleColor.Green, true);
                     esp.LoadESP();
                 }
                 else
