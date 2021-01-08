@@ -1,4 +1,5 @@
-﻿using Microsoft.Win32;
+﻿using CGWH.Utilities;
+using Microsoft.Win32;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -17,18 +18,34 @@ namespace CGWH
         {
             try
             {
-                Process process = Process.GetProcessesByName(PROCESS_NAME).FirstOrDefault();
+                Process[] processes = Process.GetProcesses();
+                Process process = null;
+
+                for (int i = 0; i < processes.Length; i++)
+                {
+                    if (processes[i].ProcessName == PROCESS_NAME)
+                    {
+                        process = processes[i];
+                        break;
+                    }
+                }
+
+                DebugUtility.Log(">> IsGetProcess()");
+                DebugUtility.Log($"[DEBUG:1] {(process?.ProcessName ?? "NULL")} P: ({string.Join(" , ", processes.Select(p => p.ProcessName))})");
                 if (process != null)
                 {
                     Memory = new Memory(PROCESS_NAME);
-                    foreach (ProcessModule module in process.Modules)
+                    string[] array = new string[process.Modules.Count];
+                    for (int i = 0; i < process.Modules.Count; i++)
                     {
-                        if (module.ModuleName == MODULE_DLL_NAME)
+                        array[i] = string.Format("{0}:{1}", process.Modules[i].ModuleName, process.Modules[i].FileName);
+                        if (process.Modules[i].ModuleName == MODULE_DLL_NAME)
                         {
-                            ModuleAddress = (int)module.BaseAddress;
+                            ModuleAddress = (int)process.Modules[i].BaseAddress;
                             return true;
                         }
                     }
+                    DebugUtility.Log($"[DEBUG:2] {string.Join(" , ", array)}");
                 }
             }
             catch { }
@@ -37,13 +54,17 @@ namespace CGWH
 
 
 
-        internal const string VERSION_DATE = "VersionDate=Dec 18 2020";
-        internal const string VERSION_TIME = "VersionTime=14:30:05";
+        //internal const string VERSION_DATE = "VersionDate=Dec 18 2020";
+        internal const string VERSION_DATE = "VersionDate=Jan 07 2021";
+        //internal const string VERSION_TIME = "VersionTime=14:30:05";
+        internal const string VERSION_TIME = "VersionTime=16:32:47";
 
         internal bool IsValidVersion()
         {
             string steamPath = Registry.GetValue("HKEY_LOCAL_MACHINE\\SOFTWARE\\Wow6432Node\\Valve\\Steam", "InstallPath", null).ToString();
             string infPath = steamPath + "\\steamapps\\common\\Counter-Strike Global Offensive\\csgo\\steam.inf";
+            DebugUtility.Log(">> IsGetProcess()");
+            DebugUtility.Log($"[DEBUG:1] {infPath}");
             if (File.Exists(infPath))
             {
                 string infText = File.ReadAllText(infPath);
