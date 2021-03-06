@@ -56,8 +56,8 @@ namespace CGWH
 
 
 
-        internal const string VERSION_DATE = "VersionDate=Feb 25 2021";
-        internal const string VERSION_TIME = "VersionTime=17:25:01";
+        internal const string VERSION_DATE = "VersionDate=Mar 01 2021";
+        internal const string VERSION_TIME = "VersionTime=16:50:16";
 
         internal bool IsValidVersion()
         {
