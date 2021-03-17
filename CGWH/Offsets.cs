@@ -2,10 +2,10 @@
 {
     internal static class Offsets
     {
-        internal const int dwGlowObjectManager = 0x52EB518;
+        internal const int dwGlowObjectManager = 0x52EB520;
 
 
-        internal const int dwLocalPlayer = 0xD8B2DC;
+        internal const int dwLocalPlayer = 0xD8B2CC;
 
         internal const int dwEntityList = 0x4DA2F24;
 

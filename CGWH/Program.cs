@@ -12,7 +12,7 @@ namespace CGWH
 
             DebugUtility.Log("\n\n");
             WriteWithColor("CGWH - Started", ConsoleColor.Yellow, true);
-            WriteWithColor($"> CVD: {Cheat.VERSION_DATE} CVT: {Cheat.VERSION_TIME}\n\n", ConsoleColor.White, true);
+            WriteWithColor($"> [VD] = {Cheat.VERSION_DATE} [VT] = {Cheat.VERSION_TIME}\n\n", ConsoleColor.White, true);
 
             Cheat cheat = new Cheat();
             ESP esp = new ESP(cheat);

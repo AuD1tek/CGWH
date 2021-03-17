@@ -55,9 +55,11 @@ namespace CGWH
 
 
 
+        internal const string VERSION_DATE_TITLE = "VersionDate=";
+        internal const string VERSION_TIME_TITLE = "VersionTime=";
 
-        internal const string VERSION_DATE = "VersionDate=Mar 01 2021";
-        internal const string VERSION_TIME = "VersionTime=16:50:16";
+        internal const string VERSION_DATE = "Mar 15 2021";
+        internal const string VERSION_TIME = "15:35:51";
 
         internal bool IsValidVersion()
         {
@@ -68,7 +70,7 @@ namespace CGWH
             if (File.Exists(infPath))
             {
                 string infText = File.ReadAllText(infPath);
-                if (infText.Contains(VERSION_DATE) && infText.Contains(VERSION_TIME))
+                if (infText.Contains(string.Concat(VERSION_DATE_TITLE, VERSION_DATE)) && infText.Contains(string.Concat(VERSION_TIME_TITLE, VERSION_TIME)))
                     return true;
             }
             return false;
